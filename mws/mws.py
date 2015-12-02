@@ -706,7 +706,7 @@ class OutboundShipments(MWS):
                     Address=address,
         )
         data.update(self.enumerate_param('Items.member.', items))
-        data.update(self.enumerate_param('ShippingSpeedCategories.', shipping_speeds))
+        data.update(self.enumerate_param('ShippingSpeedCategories.member.', shipping_speeds))
         return self.make_request(data, "POST")
 
     def create_fulfillment_order(self, seller_orderid, display_order_id, display_order_date, display_order_comment, address, items, fulfillment_action='Ship', shipping_speed='Standard', fulfillment_policy='FillOrKill', notification_emails=[]):  # COD settings for JP and CN excluded
