@@ -699,7 +699,7 @@ class OutboundShipments(MWS):
     URI = "/FulfillmentOutboundShipment/2010-10-01"
     VERSION = "2010-10-01"
 
-    def get_fulfillment_preview(self, address, items, shipping_speeds=['Standard', 'Expedited', 'Priority']):  # , include_cod=False, include_delivery_windows=False):  - COD settings only for JP and CN
+    def get_fulfillment_preview(self, address, items, shipping_speeds=['Standard', 'Expedited', 'Priority']):
         """ Returns preview of fulfillment shipment """
 
         data = dict(Action='GetFulfillmentPreview',
@@ -709,10 +709,11 @@ class OutboundShipments(MWS):
         data.update(self.enumerate_param('ShippingSpeedCategories.member.', shipping_speeds))
         return self.make_request(data, "POST")
 
-    def create_fulfillment_order(self, seller_orderid, display_order_id, display_order_date, display_order_comment, address, items, fulfillment_action='Ship', shipping_speed='Standard', fulfillment_policy='FillOrKill', notification_emails=[]):  # COD settings for JP and CN excluded
+    def create_fulfillment_order(self, marketplaceid, seller_orderid, display_order_id, display_order_date, display_order_comment, address, items, fulfillment_action='Ship', shipping_speed='Standard', fulfillment_policy='FillOrKill', notification_emails=[]):
         """ Create fulfillment shipment """
 
         data = dict(Action='CreateFulfillmentOrder',
+                    MarketplaceId=marketplaceid,
                     SellerFulfillmentOrderId=seller_orderid,
                     FulfillmentAction=fulfillment_action,
                     DisplayableOrderId=display_order_id,
@@ -726,10 +727,11 @@ class OutboundShipments(MWS):
         data.update(self.enumerate_param('NotificationEmailList.member.', notification_emails))
         return self.make_request(data, "POST")
 
-    def update_fulfillment_order(self, seller_orderid, display_order_id, display_order_date, display_order_comment, address, items, fulfillment_action='Ship', shipping_speed='Standard', fulfillment_policy='FillOrKill', notification_emails=[]):  # COD settings for JP and CN excluded
+    def update_fulfillment_order(self, marketplaceid, seller_orderid, display_order_id, display_order_date, display_order_comment, address, items, fulfillment_action='Ship', shipping_speed='Standard', fulfillment_policy='FillOrKill', notification_emails=[]):
         """ Update fulfillment shipment previously created in Hold status """
 
         data = dict(Action='UpdateFulfillmentOrder',
+                    MarketplaceId=marketplaceid,
                     SellerFulfillmentOrderId=seller_orderid,
                     FulfillmentAction=fulfillment_action,
                     DisplayableOrderId=display_order_id,
