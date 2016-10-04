@@ -699,10 +699,11 @@ class OutboundShipments(MWS):
     URI = "/FulfillmentOutboundShipment/2010-10-01"
     VERSION = "2010-10-01"
 
-    def get_fulfillment_preview(self, address, items, shipping_speeds=['Standard', 'Expedited', 'Priority']):
+    def get_fulfillment_preview(self, marketplaceid, address, items, shipping_speeds=['Standard', 'Expedited', 'Priority']):
         """ Returns preview of fulfillment shipment """
 
         data = dict(Action='GetFulfillmentPreview',
+                    MarketplaceId=marketplaceid,
                     Address=address,
         )
         data.update(self.enumerate_param('Items.member.', items))
