@@ -189,7 +189,7 @@ class MWS(object):
 
         # Remove all keys with an empty value because
         # Amazon's MWS does not allow such a thing.
-        extra_data = flatten(remove_empty(extra_data))
+        extra_data = remove_empty(flatten(extra_data))
 
         params = {
             'AWSAccessKeyId': self.access_key,
